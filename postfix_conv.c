@@ -4,28 +4,36 @@ int top=-1;
 int prec(char i);
 int isOp(char i);
 void main(){
-   char exp[]="a+b+c";
+   char p;
+   char exp[]="a+b*c^(d/e)";
    int i =0;
    do{
+       
        if(isOp(exp[i])){
+           if(top==-1){
+               push(exp[i]);
+               }
+           else{
            while(prec(a[top])>=prec(exp[i])){
                printf("%c",pop());
            }
            push(exp[i]);
+           
        }
+    }
        else{
            printf("%c",exp[i]);
        }
        i=i+1;
     }while(exp[i]!='\0');
     while(top!=-1)
-    { printf("%d",pop());
+    { printf("%c",pop());
     }
 }
 
 
 isOp(char i){
-    return (i=='+')||(i=='-')||(i=='*')||(i=='/');
+    return (i=='+')||(i=='-')||(i=='*')||(i=='/')||(i=='^')||(i=='(')||(i==')');
 } 
 
 prec(char i){
@@ -38,18 +46,20 @@ prec(char i){
             return 2;
         case '^':
             return 3;
+        case '(':
+            return 4;
         default:
             return -1;
     }
 }
 
-void push(){
+void push(char i){
     if(top==19){
         printf("Stack is full");
         return;
     }
     top=top+1;
-    scanf("%d",&a[top]);
+    a[top]=i;
     return;
 }
 
