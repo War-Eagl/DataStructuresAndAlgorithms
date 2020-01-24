@@ -5,7 +5,7 @@ int prec(char i);
 int isOp(char i);
 void main(){
    char p;
-   char exp[]="a+b*c^(d/e)";
+   char exp[]="a+c^d^e";
    int i =0;
    do{
        
@@ -15,6 +15,9 @@ void main(){
                }
            else{
            while(prec(a[top])>=prec(exp[i])){
+               if((exp[i]=='^')&&(a[top]=='^'))
+                   break;
+               else
                printf("%c",pop());
            }
            push(exp[i]);
@@ -33,7 +36,7 @@ void main(){
 
 
 isOp(char i){
-    return (i=='+')||(i=='-')||(i=='*')||(i=='/')||(i=='^')||(i=='(')||(i==')');
+    return (i=='+')||(i=='-')||(i=='*')||(i=='/')||(i=='^');
 } 
 
 prec(char i){
@@ -46,8 +49,6 @@ prec(char i){
             return 2;
         case '^':
             return 3;
-        case '(':
-            return 4;
         default:
             return -1;
     }
